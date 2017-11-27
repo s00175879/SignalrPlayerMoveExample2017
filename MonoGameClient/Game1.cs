@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Engine.Engines;
 using Sprites;
 using System.Collections.Generic;
+using GameComponentNS;
 
 namespace MonoGameClient
 {
@@ -41,6 +42,7 @@ namespace MonoGameClient
         /// </summary>
         protected override void Initialize()
         {
+            new FadeTextManager(this);
             // create input engine
             new InputEngine(this);
 
@@ -161,6 +163,9 @@ namespace MonoGameClient
             new SimplePlayerSprite(this, player, Content.Load<Texture2D>(player.imageName),
                                     new Point(player.playerPosition.X, player.playerPosition.Y));
             connectionMessage = player.playerID + " created ";
+
+            new FadeText(this, Vector2.Zero, "Welcome" + player.GamerTag + "you are playing as " + player.imageName);
+          
         }
 
         /// <summary>
@@ -173,6 +178,7 @@ namespace MonoGameClient
             Services.AddService<SpriteBatch>(spriteBatch);
 
             font = Content.Load<SpriteFont>("Message");
+            Services.AddService<SpriteFont>(font);
             
         }
 
